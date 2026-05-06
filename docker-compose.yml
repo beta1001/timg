@@ -1,0 +1,47 @@
+version: '3.9'
+
+services:
+
+  # ── Frontend : VisionLab UI (nginx) ────────────────────────────────────────
+  frontend:
+    build: ./frontend
+    container_name: frontend_app
+    ports:
+      - "8080:80"
+    networks:
+      - appnet
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  # ── Backend : Flask + PIL pipeline ─────────────────────────────────────────
+  backend:
+    build: ./backend
+    container_name: backend_app
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://db:27017/visionlab
+    networks:
+      - appnet
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  # ── Base de données : MongoDB ───────────────────────────────────────────────
+  db:
+    image: mongo
+    container_name: mongo_db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - appnet
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+
+networks:
+  appnet:
