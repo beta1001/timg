@@ -127,8 +127,18 @@ def invert(img):
         for x in range(dim_x):
             inv.putpixel((x, y), 255 - img.getpixel((x, y)))
     return inv
-
+"""
+┌───┬───┬───┐
+│ 1 │ 1 │ 1 │   dx = [-1, 0, 1]
+├───┼───┼───┤   dy = [-1, 0, 1]
+│ 1 │ X │ 1 │   
+├───┼───┼───┤   9 voisins au total
+│ 1 │ 1 │ 1 │   (incluant le pixel central X)
+└───┴───┴───┘
+"""
 #  Érosion 3x3
+#Si un seul voisin est noir (0) → le pixel devient noir
+#min(nb)
 def erode(img):
     dim_x, dim_y = img.size
     res = Image.new("L", (dim_x, dim_y), 0)
@@ -139,6 +149,8 @@ def erode(img):
     return res
 
 #  Dilatation 3x3
+#Si un seul voisin est blanc (1) → le pixel devient blanc
+#max(nb)
 def dilate(img):
     dim_x, dim_y = img.size
     res = Image.new("L", (dim_x, dim_y), 0)

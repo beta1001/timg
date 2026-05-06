@@ -74,27 +74,27 @@ docker compose down
 
 ### 1. Mode de seuillage
 
-Mode | Quand l'utiliser
+Mode        | Quand l'utiliser
 ────────────────────────────────────────────────────────────────────────────────────
 Otsu (auto) | Images avec bon contraste fond/objet. Première approche recommandée.
 ────────────────────────────────────────────────────────────────────────────────────
-Manuel | Quand Otsu échoue : objets très clairs sur fond clair,
-| ou très sombres sur fond sombre.
+Manuel      | Quand Otsu échoue : objets très clairs sur fond clair,
+            | ou très sombres sur fond sombre.
 ────────────────────────────────────────────────────────────────────────────────────
 
 ### 2. Seuil manuel (0 → 255)
 
 C'est le niveau de gris frontière entre fond et objet.
 
-Valeur | Effet
+Valeur          | Effet
 ───────────────────────────────────────────────────────────────────────────────────────────
-Bas (40–80) | Seuls les pixels très sombres deviennent objets. Utile si les objets sont
-| sombres.
+Bas (40–80)     | Seuls les pixels très sombres deviennent objets. Utile si les objets sont
+                | sombres.
 ───────────────────────────────────────────────────────────────────────────────────────────
 Moyen (100–140) | Valeur par défaut, bon équilibre.
 ───────────────────────────────────────────────────────────────────────────────────────────
-Haut (180–220) | Presque tous les pixels deviennent objets, sauf les très blancs. Utile si
-| les objets sont clairs.
+Haut (180–220)  | Presque tous les pixels deviennent objets, sauf les très blancs. Utile si
+                | les objets sont clairs.
 ───────────────────────────────────────────────────────────────────────────────────────────
 
 Astuce : regarder l'image "Seuillage binaire" dans le pipeline — les objets doivent apparaître en blanc bien distincts. Si tout est blanc ou tout est noir, ajustez.
@@ -103,9 +103,9 @@ Astuce : regarder l'image "Seuillage binaire" dans le pipeline — les objets do
 
 Filtre les régions trop petites pour être des objets réels.
 
-Valeur |Effet
+Valeur           |Effet
 ───────────────────────────────────────────────────────────────────────────────────────────
-Petite (10–30) | Détecte même les tout petits objets, mais aussi le bruit résiduel.
+Petite (10–30)   | Détecte même les tout petits objets, mais aussi le bruit résiduel.
 Moyenne (80–150) | Équilibre recommandé pour la plupart des images.
 Grande (200–500) | Ne garde que les grands objets, ignore les petits détails.
 
@@ -117,8 +117,8 @@ Contrôle l'intensité du nettoyage binaire.
 
 Valeur | Effet
 ───────────────────────────────────────────────────────────────────────────────────────────
-1 | Nettoyage léger, préserve les détails fins.
-2 | Recommandé pour images légèrement bruitées.
-3–4 | Nettoyage agressif. Fusionne les objets proches et supprime les formes fines.
+1      | Nettoyage léger, préserve les détails fins.
+2      | Recommandé pour images légèrement bruitées.
+3–4    | Nettoyage agressif. Fusionne les objets proches et supprime les formes fines.
 
 Attention : trop d'itérations peut fusionner deux objets voisins en un seul, ou faire disparaître des petits objets.
